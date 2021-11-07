@@ -1,72 +1,59 @@
-// import { render } from "node-sass";
 import React, {Component} from "react";
-import FeedbackOptions from 'components/FeedbackOptions/FeedbackOptions';
-import Statistics from "components/Statistics/Statistics";
-import Notification from "components/Notifivation/Notfication";
+import FeedbackOptions from 'components/FeedbackOptions';
+import Statistics from 'components/Statistics';
+import Section from 'components/Section';
+import Notification from 'components/Notifivation';
 
-// import './App.css';
+import './App.css'
 
 class App extends Component {
-//   static defaultProps = {
-//     initialValue: 0,
-// }
-
   state = {
   good: 0,
   neutral: 0,
   bad: 0
   }
 
- handleFeetbackGood = () => {
+  handleBtnClick = (option) => {
     this.setState(prevState => ({
-        good: prevState.good + 1,
-    }));
-  };
-
-  handleFeetbackNeutral = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  handleFeetbackBad = () => {
-    this.setState(prevState => ({
-     bad: prevState.bad + 1,
-   }))
-  };
+     [option]: prevState[option] + 1
+    }))
+  }
 
   countTotalFeedback = () => {
     return this.state.good + this.state.neutral + this.state.bad;
   }
 
- positiveFeedbackPercentage = () => {
+ countPositiveFeedbackPercentage = () => {
     return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   }
 
   render() {
+    const options = Object.keys(this.state);
+    const { good, neutral, bad } = this.state;
+
   return (
     <>
-    <h2>Please leave feedback</h2>
-
-    <FeedbackOptions
-          onFeetbackGood={this.handleFeetbackGood}
-          onFeetbackNeutral={this.handleFeetbackNeutral}
-          onFeetbackBad={this.handleFeetbackBad} />
-
+      <Section title ={'Please leave feedback'}>
+        <FeedbackOptions
+          options={options}
+          onLeaveFeedback={this.handleBtnClick}
+        />
+      </Section>
+      <Section title ={'Statistics'}>
       {this.countTotalFeedback() ? (
         <Statistics
-        good={this.state.good}
-        neutral={this.state.neutral}
-        bad={this.state.bad}
+        good={good}
+        neutral={neutral}
+        bad={bad}
         total={this.countTotalFeedback()}
-        positivePercentage={this.positiveFeedbackPercentage()}/>
+        positivePercentage={this.countPositiveFeedbackPercentage()}/>
       ) : (
           <Notification message = "No feedback given"></Notification>
-      )}
+        )}
+      </Section>
   </>
   )
 };
-  
 };
 
 export default App;

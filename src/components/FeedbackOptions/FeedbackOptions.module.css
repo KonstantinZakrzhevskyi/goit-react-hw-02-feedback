@@ -1,0 +1,32 @@
+.feedback__option {
+  display: block;
+  text-align: center;
+}
+
+.feedback__button {
+  align-items: center;
+  /* display: inline-block;
+  align-items: center;
+  justify-content: center; */
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgb(76, 240, 177);
+  border: none;
+  border-radius: 8px;
+
+  transition: 250ms linear;
+  box-shadow: 5px 10px 10px rgba(15, 59, 77, 0.747);
+}
+
+.feedback__button:not(:last-child) {
+  margin-right: 20px;
+}
+
+.feedback__button:focus,
+.feedback__button:hover {
+  color: antiquewhite;
+  background-color: rgb(18, 107, 77);
+}
